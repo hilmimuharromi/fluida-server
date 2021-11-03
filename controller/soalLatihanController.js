@@ -1,10 +1,13 @@
-const Materi = require('../models/materi');
+const SoalLatihan = require('../models/soalLatihan');
 
 const create = async (req, res) => {
-  const { title, content, code } = req.body;
+  const { title, questions, code } = req.body;
   const userId = req.decoded.id;
+  console.log('save soal masuk', req.body)
+
   try {
-    const result = await Materi.create({ title,code, content, user: userId });
+    const result = await SoalLatihan.create({ title, questions, code, user: userId });
+    console.log('save soal keluar', result)
     res.status(201).json({
       status: true,
       data: result,
@@ -19,7 +22,7 @@ const create = async (req, res) => {
 
 const getAll = async (req, res) => {
     try {
-        const result = await Materi.find({}).populate({path: 'user', select: 'name _id email'}).sort('-createdAt')
+        const result = await SoalLatihan.find({}).populate({path: 'user', select: 'name _id email'}).sort('-createdAt')
         res.status(200).json({
             status: true,
             data: result,
@@ -34,10 +37,10 @@ const getAll = async (req, res) => {
 }
 
 const update = async (req, res) => {
-    const {title, content, code} = req.body
+    const {title, questions, code} = req.body
     const _id = req.params.id
     try {
-        const result = await Materi.updateOne({_id}, {title, content, code})
+        const result = await SoalLatihan.updateOne({_id}, {title, questions, code})
         res.status(200).json({
             status: true,
             data: result,
@@ -53,10 +56,10 @@ const update = async (req, res) => {
 }
 
 
-const deleteMateri = async (req, res) => {
+const deleteSoalLatihan = async (req, res) => {
     const _id = req.params.id
     try {
-        const result = await Materi.deleteOne({_id})
+        const result = await SoalLatihan.deleteOne({_id})
         res.status(200).json({
             status: true,
             data: result,
@@ -74,5 +77,5 @@ module.exports = {
   create,
   getAll,
   update,
-  deleteMateri
+  deleteSoalLatihan
 };

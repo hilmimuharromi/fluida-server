@@ -1,10 +1,10 @@
-const Materi = require('../models/materi');
+const Praktikum = require('../models/praktikum');
 
 const create = async (req, res) => {
   const { title, content, code } = req.body;
   const userId = req.decoded.id;
   try {
-    const result = await Materi.create({ title,code, content, user: userId });
+    const result = await Praktikum.create({ title, content, code, user: userId });
     res.status(201).json({
       status: true,
       data: result,
@@ -19,7 +19,7 @@ const create = async (req, res) => {
 
 const getAll = async (req, res) => {
     try {
-        const result = await Materi.find({}).populate({path: 'user', select: 'name _id email'}).sort('-createdAt')
+        const result = await Praktikum.find({}).populate({path: 'user', select: 'name _id email'}).sort('-createdAt')
         res.status(200).json({
             status: true,
             data: result,
@@ -37,7 +37,7 @@ const update = async (req, res) => {
     const {title, content, code} = req.body
     const _id = req.params.id
     try {
-        const result = await Materi.updateOne({_id}, {title, content, code})
+        const result = await Praktikum.updateOne({_id}, {title, content, code})
         res.status(200).json({
             status: true,
             data: result,
@@ -53,10 +53,10 @@ const update = async (req, res) => {
 }
 
 
-const deleteMateri = async (req, res) => {
+const deletePraktikum = async (req, res) => {
     const _id = req.params.id
     try {
-        const result = await Materi.deleteOne({_id})
+        const result = await Praktikum.deleteOne({_id})
         res.status(200).json({
             status: true,
             data: result,
@@ -74,5 +74,5 @@ module.exports = {
   create,
   getAll,
   update,
-  deleteMateri
+  deletePraktikum
 };

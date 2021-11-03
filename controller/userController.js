@@ -10,10 +10,17 @@ const Register = async (req, res) => {
       id: result.id,
       email: result.email,
     });
+    const resultData = {
+      ...result._doc
+    }
+    delete resultData.password
     res.status(201).json({
       status: true,
       message: 'Success Register',
-      token: token,
+      data: {
+        token,
+        ...resultData
+      }
     });
   } catch (e) {
     res.status(400).json({
@@ -41,14 +48,24 @@ const Login = async (req, res, next) => {
         email: userData.email,
       });
 
+      const resultData = {
+        ...userData._doc
+      }
+      delete resultData.password
+
+
       res.status(200).json({
         status: true,
         message: 'Success Login',
-        token: token,
+          data: {
+            token,
+            ...resultData
+          }
+       
+
       });
     }
   } catch (e) {
-    console.log('error logiiin', JSON.stringify(e.message));
     res.status(400).json({
       status: false,
       message: 'error login',
@@ -60,14 +77,12 @@ const Login = async (req, res, next) => {
 const getUser = async (req, res) => {
   try {
     const resultToken = verifyToken(req.headers.token);
-    const userData = await User.findOne({ id: resultToken.id });
-    // console.log('verify token',userData)
+    const userData = await User.findOne({ id: resultToken.id }, "-password");
     res.status(200).json({
       status: true,
       data: userData,
     });
   } catch (e) {
-    console.log('error getuser', JSON.stringify(e.message));
     res.status(400).json({
       status: false,
       message: 'error get user',

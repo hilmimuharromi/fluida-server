@@ -1,6 +1,6 @@
 const mongoose = require("mongoose") ;
 
-const materiSchema = new mongoose.Schema({
+const tugasProyekSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -20,5 +20,5 @@ const materiSchema = new mongoose.Schema({
     },
 }, {timestamps: true})
 
-const materi = mongoose.model("materi", materiSchema);
-module.exports = materi;
+const tugasProyek = mongoose.model("tugasProyek", tugasProyekSchema);
+module.exports = tugasProyek;

@@ -6,19 +6,14 @@ const authentication = async (req, res, next) => {
        const token = req.headers.token
        
        if(!token) {
-           return  next({
-            name: 'authentication',
-            status: 403,
-            message: 'Forbidden'
-        })
+            throw new Error('authentication')
        }
        req.decoded = verifyToken(token)
        const verifyUser = await User.findOne({
-           where: {
-               email: req.decoded.email
-           }
-       })
+        _id: req.decoded.id
+        })
        if(verifyUser) {
+           req.decoded = verifyUser
         return next()
     }
        else {
@@ -29,7 +24,9 @@ const authentication = async (req, res, next) => {
    } catch (err) {
     console.log('error syhenticate', err)
 
-    next(err)
+    res.status(403).json({
+        message: 'Please login'
+    })
        
 
    }

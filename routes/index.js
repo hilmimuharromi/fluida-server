@@ -5,6 +5,10 @@ const fs = require('fs');
 const fsPromises = fs.promises;
 const userRouter = require('./userRouter')
 const materiRouter = require('./materiRouter')
+const praktikumRouter = require('./praktikumRouter')
+const tugasProyekRouter = require('./tugasProyekRouter')
+const soalLatihanRouter = require('./soalLatihanRouter')
+const playlistRouter = require('./playlistRouter')
 
 router.get('/', (req, res) => {
     res.status(200).json({
@@ -14,6 +18,10 @@ router.get('/', (req, res) => {
 
 router.use(userRouter)
 router.use(materiRouter)
+router.use(praktikumRouter)
+router.use(tugasProyekRouter)
+router.use(soalLatihanRouter)
+router.use(playlistRouter)
 router.post('/upload',multer, async (req, res) => {
 
     console.log('masuuuk / upload', req.file)

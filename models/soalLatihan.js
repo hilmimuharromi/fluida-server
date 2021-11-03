@@ -1,6 +1,6 @@
 const mongoose = require("mongoose") ;
 
-const materiSchema = new mongoose.Schema({
+const soalLatihanSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -10,8 +10,8 @@ const materiSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    content: {
-        type: String,
+    questions: {
+        type: Array,
         required: true,
     },
     user: {
@@ -20,5 +20,5 @@ const materiSchema = new mongoose.Schema({
     },
 }, {timestamps: true})
 
-const materi = mongoose.model("materi", materiSchema);
-module.exports = materi;
+const soalLatihan = mongoose.model("soalLatihan", soalLatihanSchema);
+module.exports = soalLatihan;
