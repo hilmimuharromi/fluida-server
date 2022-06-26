@@ -14,6 +14,10 @@ const soalLatihanSchema = new mongoose.Schema({
         type: Array,
         required: true,
     },
+    type: {
+        type: String,
+        required: true
+    },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",

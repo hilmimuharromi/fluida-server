@@ -9,6 +9,7 @@ const praktikumRouter = require('./praktikumRouter')
 const tugasProyekRouter = require('./tugasProyekRouter')
 const soalLatihanRouter = require('./soalLatihanRouter')
 const playlistRouter = require('./playlistRouter')
+const penilaianRouter = require('./penilaianRouter')
 
 router.get('/', (req, res) => {
     res.status(200).json({
@@ -22,9 +23,10 @@ router.use(praktikumRouter)
 router.use(tugasProyekRouter)
 router.use(soalLatihanRouter)
 router.use(playlistRouter)
-router.post('/upload',multer, async (req, res) => {
+router.use("/penilaian",  penilaianRouter)
+router.post('/upload',multer('image', 'proyek'), async (req, res) => {
 
-    console.log('masuuuk / upload', req.file)
+    console.log('masuuuk / upload', req.body)
 
     try{
         res.status(201).json({
@@ -40,7 +42,7 @@ router.post('/upload',multer, async (req, res) => {
 
 })
 
-router.get('/pdf/:url', (req, res) => {
+router.get('/file/:url', (req, res) => {
     const {url} = req.params
     const document = path.join(__dirname, `../upload/${url}`)
     fs.readFile(document, (err, data) => {

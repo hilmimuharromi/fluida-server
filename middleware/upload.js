@@ -10,19 +10,23 @@ function randomString(size = 10) {
       
   }
 // menentukan lokasi pengunggahan
-const diskStorage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, path.join(__dirname, "../upload"));
-  },
-  filename: function (req, file, cb) {
-      console.log('file ===>', file)
-    cb(
-      null,
-      'img' + "-" + randomString() + path.extname(file.originalname)
-    );
-  },
-});
 
-const upload = multer({ storage: diskStorage }).single("pdf")
+const handleMulter = (field, key) => {
+  const diskStorage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, path.join(__dirname, "../upload"));
+    },
+    filename: function (req, file, cb) {
+        console.log('file ===>', file)
+      cb(
+        null,
+        key + "-" + randomString() + path.extname(file.originalname)
+      );
+    },
+  });
+  console.log('running', 27)
+  return multer({ storage: diskStorage }).single(field)
 
-module.exports = upload
+}
+
+module.exports = handleMulter

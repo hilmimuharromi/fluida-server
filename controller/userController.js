@@ -35,6 +35,8 @@ const Login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const userData = await User.findOne({ email });
+    console.log('userdata', userData, email)
+    
 
     if (!userData || !verifyPassword(password, userData.password)) {
       res.status(400).json({

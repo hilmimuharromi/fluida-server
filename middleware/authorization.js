@@ -71,7 +71,6 @@ const tugasProyekAuthorization = async(req, res, next) => {
             error: JSON.stringify(e.message)
         })
     }
-
 }
 
 const soalLatihanAuthorization = async(req, res, next) => {
@@ -95,8 +94,8 @@ const soalLatihanAuthorization = async(req, res, next) => {
             error: JSON.stringify(e.message)
         })
     }
-
 }
+
 
 module.exports = {
     materiAuthorization,
