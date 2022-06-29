@@ -1,6 +1,6 @@
 const PenSoal = require("../models/penilaianSoal")
 
-const addPenilaianSoal =  async () => {
+const addPenilaianSoal =  async (req, res) => {
     try{
         const payload = {
             answer: req.body.answer,
@@ -38,15 +38,10 @@ const getPenSoal = async (req, res) => {
       if (user.role === "guru") {
         const result = await PenSoal.find({});
         if (result.length > 0) {
-          const formatResult = result.map((item) => {
-            item.answer = req.get("host") + "/file/" + item.answer;
-            return item;
-          });
           res.status(200).json({
             status: "success",
-            message: "sukses add data",
-            host: req.get("host"),
-            data: formatResult,
+            message: "sukses get data",
+            data: result,
           });
         }
       } else {
@@ -55,8 +50,7 @@ const getPenSoal = async (req, res) => {
         const formatResult = result;
             res.status(200).json({
               status: "success",
-              message: "sukses add data",
-              host: req.get("host"),
+              message: "sukses get data",
               data: formatResult,
             });
         }
@@ -71,5 +65,6 @@ const getPenSoal = async (req, res) => {
   };
 
 module.exports = {
-    addPenilaianSoal
+    addPenilaianSoal,
+    getPenSoal
 }
