@@ -10,7 +10,7 @@ const addPenilaianPraktikum = async (req, res) => {
       praktikum: req.body.praktikumId,
       user: req.decoded.id,
     };
-    const isFound = await PenPraktikum.findOne({ user: req.decoded.id });
+    const isFound = await PenPraktikum.findOne({ user: req.decoded.id, praktikum: req.body.praktikumId });
     if (isFound) {
       await fs.unlinkSync(path.join(__dirname, `../upload/${isFound.answer}`));
       await PenPraktikum.deleteMany({ user: req.decoded.id });
