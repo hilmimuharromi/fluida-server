@@ -10,8 +10,8 @@ const praktikumSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
-    content: {
-        type: String,
+    questions: {
+        type: Array,
         required: true,
     },
     user: {

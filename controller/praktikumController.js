@@ -1,10 +1,10 @@
 const Praktikum = require('../models/praktikum');
 
 const create = async (req, res) => {
-  const { title, content, code } = req.body;
+  const { title, code, questions } = req.body;
   const userId = req.decoded.id;
   try {
-    const result = await Praktikum.create({ title, content, code, user: userId });
+    const result = await Praktikum.create({ title, code, questions, user: userId });
     res.status(201).json({
       status: true,
       data: result,
@@ -34,10 +34,10 @@ const getAll = async (req, res) => {
 }
 
 const update = async (req, res) => {
-    const {title, content, code} = req.body
+    const {title, questions, code} = req.body
     const _id = req.params.id
     try {
-        const result = await Praktikum.updateOne({_id}, {title, content, code})
+        const result = await Praktikum.updateOne({_id}, {title, questions, code})
         res.status(200).json({
             status: true,
             data: result,

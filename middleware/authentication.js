@@ -4,7 +4,6 @@ const {verifyToken} = require('../helper/token')
 const authentication = async (req, res, next) => {
    try{
        const token = req.headers.token
-       
        if(!token) {
             throw new Error('authentication')
        }
