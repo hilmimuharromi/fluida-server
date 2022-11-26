@@ -48,7 +48,7 @@ const getPenProyek = async (req, res) => {
           console.log('masuk sini', result)
           if (result.length > 0) {
             const formatResult = result.map((item) => {
-              item.answer = req.get("host") + "/file/" + item.answer;
+              item.answer = process.env.CURRENT_URL + "/file/" + item.answer;
               return item;
             });
             console.log('format result', formatResult)
@@ -70,13 +70,12 @@ const getPenProyek = async (req, res) => {
           });
           if (result) {
             const formatResult = result.map((item) => {
-                item.answer = req.get("host") + "/file/" + item.answer;
+                item.answer = process.env.CURRENT_URL + "/file/" + item.answer;
                 return item
             })
               res.status(200).json({
                 status: "success",
                 message: "sukses add data",
-                host: req.get("host"),
                 data: formatResult,
               });
           }
