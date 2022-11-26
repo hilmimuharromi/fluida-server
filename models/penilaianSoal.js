@@ -13,6 +13,9 @@ const penilaianSoalSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
     },
+    score: {
+        type: Number
+    }
 }, {timestamps: true})
 
 const penilaianSoal = mongoose.model("penilaianSoal", penilaianSoalSchema);

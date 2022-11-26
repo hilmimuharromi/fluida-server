@@ -1,13 +1,13 @@
 const mongoose = require("mongoose") ;
 
-const penilaianPraktikumSchema = new mongoose.Schema({
+const penilaianProyekSchema = new mongoose.Schema({
     answer: {
-        type: Array,
+        type: String,
         required: true,
     },
-    praktikum: {
+    proyek: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "praktikum",
+        ref: "tugasProyek",
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -18,5 +18,5 @@ const penilaianPraktikumSchema = new mongoose.Schema({
     }
 }, {timestamps: true})
 
-const penilaianPraktikum = mongoose.model("penilaianPraktikum", penilaianPraktikumSchema);
-module.exports = penilaianPraktikum;
+const penilaianProyek = mongoose.model("penilaianProyek", penilaianProyekSchema);
+module.exports = penilaianProyek;
