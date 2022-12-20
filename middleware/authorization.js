@@ -30,7 +30,6 @@ const praktikumAuthorization = async(req, res, next) => {
     try {
         const user = req.decoded
         const _id = req.params.id
-
         if(user.role === 'admin') next()
         else if(user.role === 'murid') throw new Error('not authorized')
         else {
@@ -77,11 +76,11 @@ const soalLatihanAuthorization = async(req, res, next) => {
     try {
         const user = req.decoded
         const _id = req.params.id
-
         if(user.role === 'admin') next()
         else if(user.role === 'murid') throw new Error('not authorized')
         else {
             const result = await SoalLatihan.findOne({_id}).populate('user')
+            console.log('result', result)
             if(result.user.id === user.id) {
                 next()
             } else {

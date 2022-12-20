@@ -15,8 +15,7 @@ const soalLatihanSchema = new mongoose.Schema({
         required: true,
     },
     type: {
-        type: String,
-        required: true
+        type: String
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
