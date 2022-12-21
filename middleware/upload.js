@@ -24,7 +24,6 @@ const handleMulter = (field, key) => {
       );
     },
   });
-  console.log('running', 27)
   return multer({ storage: diskStorage }).single(field)
 
 }

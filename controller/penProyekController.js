@@ -4,7 +4,8 @@ const fs = require("fs");
 const path = require("path");
 
 const addPenProyek = async (req, res) => {
-    try {
+    try { 
+      console.log('req file', req.file)
       const payload = {
         answer: req.file.filename,
         proyek: req.params.proyekId,
@@ -22,6 +23,7 @@ const addPenProyek = async (req, res) => {
     //       host: os.hostname(),
     //     });
     //   } else {
+      console.log("payload", payload)
         const result = await PenProyek.create(payload);
         res.status(200).json({
           status: "success",
@@ -31,6 +33,7 @@ const addPenProyek = async (req, res) => {
         });
     //   }
     } catch (err) {
+      console.log('error ===>', err)
       res.status(400).json({
         status: "error",
         message: err,

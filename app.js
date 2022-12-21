@@ -10,7 +10,8 @@ require('dotenv').config()
 
 app.use(cors())
 app.use(express.urlencoded({
-    extended: false
+    extended: true,
+    limit: "10mb"
 }))
 app.use(morgan('tiny'));
 app.use(express.json())
