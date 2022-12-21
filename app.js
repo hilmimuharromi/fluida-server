@@ -4,15 +4,14 @@ const app = express()
 const routers = require('./routes/index')
 const http = require('http')
 const mongoose = require('mongoose')
+const bodyParser = require('body-parser');
 const morgan = require('morgan');
 require('dotenv').config()
 
 
 app.use(cors())
-app.use(express.urlencoded({
-    extended: true,
-    limit: "10mb"
-}))
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }));
 app.use(morgan('tiny'));
 app.use(express.json())
 const uriLokal = `mongodb://localhost:27017/${process.env.DB_NAME}`
