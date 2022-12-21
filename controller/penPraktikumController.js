@@ -45,23 +45,23 @@ const addPenilaianPraktikum =  async (req, res) => {
           praktikum: req.body.praktikum,
           user: req.decoded.id,
         };
-        // const isFound = await PenSoal.findOne({ user: req.decoded.id, soal: req.body.soal });
-        // if (isFound) {
-        //   await PenSoal.deleteMany({user: req.decoded.id})
-        //   const result = await PenSoal.create(payload)
-        //   res.status(200).json({
-        //       status: "success",
-        //       message: "sukses add penilaian",
-        //       data: result,
-        //     });
-        // } else {
+        const isFound = await PenPraktikum.findOne({ user: req.decoded.id, praktikum: payload.praktikum });
+        if (isFound) {
+          await PenPraktikum.deleteMany({user: req.decoded.id})
           const result = await PenPraktikum.create(payload)
           res.status(200).json({
               status: "success",
               message: "sukses add penilaian",
               data: result,
             });
-        // }
+        } else {
+          const result = await PenPraktikum.create(payload)
+          res.status(200).json({
+              status: "success",
+              message: "sukses add penilaian",
+              data: result,
+            });
+        }
   }catch(err) {
       res.status(400).json({
           status: "error",
