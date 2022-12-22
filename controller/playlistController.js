@@ -65,10 +65,10 @@ const deletePlaylist = async (req, res) => {
 }
 
 const update = async (req, res) => {
-    const {title, contents} = req.body
+    const {title, contents, coverImage} = req.body
     const _id = req.params.id
     try {
-        const result = await Playlist.updateOne({_id}, {title, contents})
+        const result = await Playlist.updateOne({_id}, {title, contents, coverImage})
         res.status(200).json({
             status: true,
             data: result,
