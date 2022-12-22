@@ -5,9 +5,9 @@ const create  = async (req, res, next) => {
   const userId = req.decoded.id;
     try {
         console.log(req.body)
-        const {title, contents} = req.body
+        const {title,coverImage, contents} = req.body
         const result = await Playlist.create({
-            title, contents, user: userId
+            title,coverImage, contents, user: userId
         })
         console.log('result playlist', result)
         res.status(201).json({

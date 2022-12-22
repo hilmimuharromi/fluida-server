@@ -5,6 +5,9 @@ const playlistSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    coverImage: {
+        type: String,
+    },
     contents: [{
         key: Number,
         flag: String,
