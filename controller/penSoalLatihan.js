@@ -1,5 +1,5 @@
 const PenSoal = require("../models/penilaianSoal")
-
+const Soal = require('../models/soalLatihan')
 const addPenilaianSoal =  async (req, res) => {
     try{
         const payload = {
@@ -7,6 +7,23 @@ const addPenilaianSoal =  async (req, res) => {
             soal: req.body.soal,
             user: req.decoded.id,
           };
+          await Soal.findById(req.body.soal)
+          .then((res) => {
+            let totalTrue = 0
+            console.log('resss', res) 
+            res.questions.map((item) => {
+              console.log('itemmm', item)
+              const userAnswer = payload.answer.find((i) => i.key === item.key)
+              if(userAnswer) {
+                const trueAnswer = item.options.find((o) => o.key === userAnswer.selectedOption && o.isTrue)
+                if(trueAnswer) {
+                  totalTrue +=1
+                }
+              }
+            })
+            let score = totalTrue /(res.questions.length/100)
+            payload.score = score.toFixed()
+          })
           const isFound = await PenSoal.findOne({ user: req.decoded.id, soal: req.body.soal });
           if (isFound) {
             await PenSoal.deleteMany({user: req.decoded.id})

@@ -46,6 +46,7 @@ const addPenilaianPraktikum =  async (req, res) => {
           user: req.decoded.id,
         };
         const isFound = await PenPraktikum.findOne({ user: req.decoded.id, praktikum: payload.praktikum });
+        
         if (isFound) {
           await PenPraktikum.deleteMany({user: req.decoded.id})
           const result = await PenPraktikum.create(payload)
@@ -111,11 +112,11 @@ const addPenilaianPraktikum =  async (req, res) => {
 
 
 const getPenilaianPraktikum = async (req, res) => {
-  console.log("req.params.soalId", req.params.praktikumId)
+  console.log("req.params.praktikum id]", req.params.praktikumId)
     try {
       const user = req.decoded;
       if (user.role === "guru") {
-        const result = await PenPraktikum.find({soal: req.params.praktikumId}).populate('praktikum').populate("user").sort({
+        const result = await PenPraktikum.find({praktikum: req.params.praktikumId}).populate('praktikum').populate("user").sort({
           createdAt: "desc"
         });
         console.log("result", result)
@@ -127,7 +128,7 @@ const getPenilaianPraktikum = async (req, res) => {
           });
         }
       } else {
-        const result = await PenPraktikum.find({ user: req.decoded.id, soal: req.params.soalId });
+        const result = await PenPraktikum.find({ user: req.decoded.id, praktikum: req.params.praktikumId });
         if (result) {
         const formatResult = result;
             res.status(200).json({
